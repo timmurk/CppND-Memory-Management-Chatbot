@@ -9,8 +9,7 @@
 #include "chatbot.h"
 
 // constructor WITHOUT memory allocation
-ChatBot::ChatBot()
-{
+ChatBot::ChatBot() {
     // invalidate data handles
     _image = nullptr;
     _chatLogic = nullptr;
@@ -44,6 +43,51 @@ ChatBot::~ChatBot()
 
 //// STUDENT CODE
 ////
+
+ChatBot::ChatBot(const ChatBot &source) {
+    std::cout << "ChatBot Copy Constructor" << std::endl;
+    _image = new wxBitmap(*source._image);
+	_chatLogic = source._chatLogic;
+    _rootNode = source._rootNode;
+}
+
+ChatBot& ChatBot::operator=(const ChatBot &source) {
+    std::cout << "ChatBot Copy Assignment Constructor" << std::endl;
+    if (&source == this) {
+        return *this;
+    }
+    _image = new wxBitmap(*source._image);
+    _chatLogic = source._chatLogic;
+    _rootNode = source._rootNode;
+    return *this;
+}
+
+ChatBot::ChatBot(ChatBot &&source) {
+    std::cout << "ChatBot Move Constructor" << std::endl;
+    _image = source._image;
+	_chatLogic = source._chatLogic;
+    _rootNode = source._rootNode;
+    _chatLogic->SetChatbotHandle(this);    
+    source._image = NULL;
+	source._chatLogic = NULL;
+    source._rootNode = NULL;
+    
+}
+
+ChatBot& ChatBot::operator=(ChatBot &&source) {
+    std::cout << "ChatBot Move Assignment Constructor" << std::endl;
+    if (&source == this) {
+        return *this;
+    }
+    _image = source._image;
+    _chatLogic = source._chatLogic;
+    _rootNode = source._rootNode;
+    _chatLogic->SetChatbotHandle(this);    
+    source._chatLogic = NULL;
+    source._rootNode = NULL;
+    source._image = NULL;
+    return *this;
+}
 
 ////
 //// EOF STUDENT CODE

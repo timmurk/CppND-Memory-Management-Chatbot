@@ -1,6 +1,6 @@
 #ifndef CHATBOT_H_
 #define CHATBOT_H_
-
+#include <memory>
 #include <wx/bitmap.h>
 #include <string>
 
@@ -29,6 +29,13 @@ public:
 
     //// STUDENT CODE
     ////
+	
+    /*COPY PART*/
+	ChatBot(const ChatBot &source); 
+    ChatBot &operator=(const ChatBot &source); 
+    /*MOVE PART*/
+    ChatBot(ChatBot &&source); 
+    ChatBot &operator=(ChatBot &&source);
 
     ////
     //// EOF STUDENT CODE
@@ -37,7 +44,6 @@ public:
     void SetCurrentNode(GraphNode *node);
     void SetRootNode(GraphNode *rootNode) { _rootNode = rootNode; }
     void SetChatLogicHandle(ChatLogic *chatLogic) { _chatLogic = chatLogic; }
-    ChatLogic* GetChatLogicHandle() { return _chatLogic; }
     wxBitmap *GetImageHandle() { return _image; }
 
     // communication
